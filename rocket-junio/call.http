@@ -10,3 +10,14 @@ Accept: application/json
 
 GET http://localhost:8090/api/item/123/camara
 Accept: application/json
+
+###
+
+GET http://localhost:8090/api/items/WOLOX/Juan?page=2&per_page=5&sort_by=name
+Accept: application/json
+
+###
+
+GET http://localhost:8090/api/itemsMultiple?ids=1,2,3,4
+Accept: application/json
+
