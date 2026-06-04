@@ -5,3 +5,8 @@ Accept: application/json
 
 GET http://localhost:8090/api/hello
 Accept: application/json
+
+###
+
+GET http://localhost:8090/api/item/123/camara
+Accept: application/json

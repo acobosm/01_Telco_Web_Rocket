@@ -11,6 +11,11 @@ fn hello() -> &'static str {
     "Hello añadido a posterior!"
 }
 
+#[get("/item/<id>/<name>")]
+fn get_item(id: usize, name: &str) -> String {
+    format!("Item con ID: {} y Nombre: {}", id, name)
+}
+
 #[launch]
 fn rocket() -> _ {
     // Configura el puerto 8090 de manera programática
@@ -18,5 +23,5 @@ fn rocket() -> _ {
 
     rocket::custom(config)
         .mount("/", routes![index])
-        .mount("/api", routes![hello])
+        .mount("/api", routes![hello, get_item])
 }
