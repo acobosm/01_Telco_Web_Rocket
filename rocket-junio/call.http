@@ -21,3 +21,17 @@ Accept: application/json
 GET http://localhost:8090/api/itemsMultiple?ids=1,2,3,4
 Accept: application/json
 
+###
+
+POST http://localhost:8090/api/person/Globant/Alejandro
+Content-Type: application/json
+
+{
+    "nombre": "Juan Carlos",
+    "edad": 39,
+    "saldo": 1500.50
+}
+
+
+
+

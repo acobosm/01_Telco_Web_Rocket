@@ -1,6 +1,9 @@
 #[macro_use]
 extern crate rocket;
 
+use rocket::serde::json::Json;
+use serde::{Deserialize, Serialize};
+
 #[get("/")]
 fn index() -> &'static str {
     "¡Hola desde Rocket en el puerto 8090!"
@@ -39,6 +42,21 @@ fn get_multiple_items(ids: Vec<String>) -> String {
     format!("Fetching items with IDs: {:?}", ids)
 }
 
+#[derive(Serialize, Deserialize)]
+struct Person {
+    nombre: String,
+    edad: i32,
+    saldo: f64,
+}
+
+#[post("/person/<empresa>/<nombre>", format = "json", data = "<person>")]
+fn create_person(empresa: String, nombre: String, person: Json<Person>) -> String {
+    format!(
+        "Persona creada - Empresa: {}, Nombre: {}, Nombre persona: {}, Edad: {}, Saldo: ${:.2}",
+        empresa, nombre, person.nombre, person.edad, person.saldo
+    )
+}
+
 #[launch]
 fn rocket() -> _ {
     // Configura el puerto 8090 de manera programática
@@ -46,6 +64,12 @@ fn rocket() -> _ {
 
     rocket::custom(config).mount("/", routes![index]).mount(
         "/api",
-        routes![hello, get_item, get_items, get_multiple_items],
+        routes![
+            hello,
+            get_item,
+            get_items,
+            get_multiple_items,
+            create_person
+        ],
     )
 }
