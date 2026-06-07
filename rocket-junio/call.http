@@ -32,6 +32,61 @@ Content-Type: application/json
     "saldo": 1500.50
 }
 
+###
 
+POST http://localhost:8090/api/json
+Content-Type: application/json
+
+{
+    "clave_cualquiera": "esta es una clave cualquiera",
+    "numero": 42,
+    "lista": [1, 2, 3],
+    "booleano_ejemplo": true,
+    "metadata": {
+        "clave_interna": "valor_interno",
+        "numero": 123,
+        "inStock": true,
+        "coordinates": {
+            "lat": 40.7128,
+            "lng": -74.0060
+        }
+    }
+}
+
+###
+
+POST http://localhost:8090/api/urlencoded/person
+Content-Type: application/x-www-form-urlencoded
+
+nombre=Juan+Carlos&edad=39&saldo=1500.50
+
+###
+
+POST http://localhost:8090/api/urlencoded/product
+Content-Type: application/x-www-form-urlencoded
+
+id=12345678X&nombre=Teclado+Mecanico&precio=53.50&saldo=20
+
+###
+
+POST http://localhost:8090/api/upload
+Content-Type: multipart/form-data; boundary=boundary_ejemplo
+
+--boundary_ejemplo
+Content-Disposition: form-data; name="campo1"
+
+Hola, esto es el campo 1
+--boundary_ejemplo
+Content-Disposition: form-data; name="campo2"
+
+Hola, esto es el campo 2
+--boundary_ejemplo
+Content-Disposition: form-data; name="file"; filename="ejemplo.txt"
+Content-Type: text/plain
+
+Contenido de prueba en texto plano para el archivo subido.
+Para el estudio de URL ENCODED MULTIPART.
+Para la Maestría Ingeniero Blockchain 360 de CodeCrypto.
+--boundary_ejemplo--
 
 

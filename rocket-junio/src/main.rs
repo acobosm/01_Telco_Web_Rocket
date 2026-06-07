@@ -1,6 +1,8 @@
 #[macro_use]
 extern crate rocket;
 
+use rocket::form::Form;
+use rocket::fs::TempFile;
 use rocket::serde::json::Json;
 use serde::{Deserialize, Serialize};
 
@@ -42,7 +44,7 @@ fn get_multiple_items(ids: Vec<String>) -> String {
     format!("Fetching items with IDs: {:?}", ids)
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, FromForm)]
 struct Person {
     nombre: String,
     edad: i32,
@@ -54,6 +56,46 @@ fn create_person(empresa: String, nombre: String, person: Json<Person>) -> Strin
     format!(
         "Persona creada - Empresa: {}, Nombre: {}, Nombre persona: {}, Edad: {}, Saldo: ${:.2}",
         empresa, nombre, person.nombre, person.edad, person.saldo
+    )
+}
+
+#[post("/json", format = "json", data = "<data>")]
+fn post_json(data: Json<serde_json::Value>) -> String {
+    format!("Received JSON data: {:?}", data.get("metadata"))
+}
+
+#[derive(Serialize, Deserialize, Debug, FromForm)]
+struct Product {
+    id: String,
+    nombre: String,
+    precio: f64,
+    saldo: f64,
+}
+
+#[post("/urlencoded/person", format = "form", data = "<person>")]
+fn post_urlencoded_person(person: Form<Person>) -> String {
+    format!("Received form data (Person): {:?}", person)
+}
+
+#[post("/urlencoded/product", format = "form", data = "<product>")]
+fn post_urlencoded_product(product: Form<Product>) -> String {
+    format!("Received form data (Product): {:?}", product)
+}
+
+#[derive(FromForm)]
+struct UploadForm<'f> {
+    campo1: String,
+    campo2: String,
+    file: TempFile<'f>,
+}
+
+#[post("/upload", data = "<form>")]
+async fn upload_multipart(mut form: Form<UploadForm<'_>>) -> String {
+    form.file.persist_to("../file.txt").await.unwrap();
+    format!(
+        "Campos recibidos - Campo1: {}, Campo2: {:?}\n",
+        form.campo1,
+        form.campo2,
     )
 }
 
@@ -69,7 +111,11 @@ fn rocket() -> _ {
             get_item,
             get_items,
             get_multiple_items,
-            create_person
+            create_person,
+            post_json,
+            post_urlencoded_person,
+            post_urlencoded_product,
+            upload_multipart
         ],
     )
 }

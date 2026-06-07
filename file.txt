@@ -1,0 +1,3 @@
+Contenido de prueba en texto plano para el archivo subido.
+Para el estudio de URL ENCODED MULTIPART.
+Para la Maestría Ingeniero Blockchain 360 de CodeCrypto.
