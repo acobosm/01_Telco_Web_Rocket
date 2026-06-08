@@ -1,3 +1,91 @@
-### Health Check (Verification of SQLite Database Connection)
+### 1. Health Check (Verificación de Conexión SQLite)
 GET http://localhost:8001/health
+Accept: application/json
+
+###
+
+### 2. Listar Clientes (Paginación por defecto: Página 1, 10 registros)
+GET http://localhost:8001/customers
+Accept: application/json
+
+###
+
+### 3. Listar Clientes con Paginación personalizada (Página 1, 5 registros)
+GET http://localhost:8001/customers?page=1&per_page=5
+Accept: application/json
+
+###
+
+### 4. Filtrar Clientes por Nombre de Empresa (Busca "Alfreds")
+GET http://localhost:8001/customers?name_filter=Alfreds
+Accept: application/json
+
+###
+
+### 5. Listar Clientes Ordenados por Nombre de Empresa (Orden Descendente)
+GET http://localhost:8001/customers?sort_field=companyName&sort_order=desc&per_page=5
+Accept: application/json
+
+###
+
+### 6. Obtener un Cliente Específico por ID (ALFKI)
+GET http://localhost:8001/customers/ALFKI
+Accept: application/json
+
+###
+
+### 7. Crear un Nuevo Cliente (ID: CODEX, CodeCrypto Academy)
+POST http://localhost:8001/customers
+Content-Type: application/json
+
+{
+  "customerId": "CODEX",
+  "companyName": "CodeCrypto Academy",
+  "contactName": "José Viejó",
+  "contactTitle": "Instructor Rust",
+  "address": "Calle Falsa 123",
+  "city": "Madrid",
+  "region": "MD",
+  "postalCode": "28001",
+  "country": "España",
+  "phone": "+34 123 456 789",
+  "fax": null
+}
+
+###
+
+### 8. Obtener el Cliente Creado para verificar (CODEX)
+GET http://localhost:8001/customers/CODEX
+Accept: application/json
+
+###
+
+### 9. Actualizar los Datos del Cliente Creado (Cambiar teléfono y contacto)
+PUT http://localhost:8001/customers/CODEX
+Content-Type: application/json
+
+{
+  "customerId": "CODEX",
+  "companyName": "CodeCrypto Academy S.L.",
+  "contactName": "Juan Carlos Pérez",
+  "contactTitle": "Lead Engineer Rust",
+  "address": "Calle Falsa 123",
+  "city": "Madrid",
+  "region": "MD",
+  "postalCode": "28001",
+  "country": "España",
+  "phone": "+34 999 999 999",
+  "fax": null
+}
+
+###
+
+### 10. Eliminar el Cliente de Prueba (CODEX)
+DELETE http://localhost:8001/customers/CODEX
+Accept: application/json
+
+###
+
+### 11. Intentar obtener el Cliente Eliminado (Debe retornar 404 Not Found)
+GET http://localhost:8001/customers/CODEX
 Accept: application/json
