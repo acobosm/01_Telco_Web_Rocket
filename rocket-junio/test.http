@@ -1,0 +1,3 @@
+### Health Check (Verification of SQLite Database Connection)
+GET http://localhost:8001/health
+Accept: application/json

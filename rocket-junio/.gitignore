@@ -1,1 +1,4 @@
 /target
+/northwind.db
+*:Zone.Identifier
+*.Zone.Identifier
