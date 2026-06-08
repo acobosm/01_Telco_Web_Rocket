@@ -110,11 +110,40 @@ Este proyecto es una aplicación web full-stack premium para la gestión y admin
     4.  **Prueba de Visualización del homepage:** Se logra visualizar un HomePage con diseño moderno y con las funcionalidades requeridas.
         ![Prueba de Visualización del homepage](rocket-junio/Documentacion/images/etapa3_homepage.png)
 
-### 🔹 Etapa 4: Integración del API del Backend y Vista del Listado Real (Próxima Etapa)
+### 🔹 Etapa 4: Integración del API del Backend y Vista del Listado Real
 *   **Objetivo:** Conectar la tabla del frontend con el endpoint `GET /customers` del backend Rust para renderizar información en tiempo real, habilitar paginación, filtros de búsqueda y ordenamiento de columnas interactivos.
+*   **Detalles Técnicos:**
+    *   Integración de peticiones HTTP dinámicas utilizando la API nativa `fetch` hacia el puerto `8001`.
+    *   Implementación de un debounce de **400ms** en el campo de búsqueda de empresa para evitar múltiples consultas innecesarias en cada pulsación.
+    *   Integración de `TablePagination` y etiquetas `TableSortLabel` de Material-UI v6 con la API RESTful.
+*   **Archivos Relacionados:**
+    *   [`front/src/app/page.tsx`](file:///home/ebit/projects/0%20CodeCrypto%20Academy/04_Rust_Practice/01_Telco_Web_Rocket/front/src/app/page.tsx): Lógica de estado, debounce de búsqueda y ordenación dinámica vinculados al API.
+*   **Pruebas Realizadas:**
+    1.  **Listado Real con Datos del API:** Renderizado completo de los 93 registros con paginación de base de datos activa.
+        
+        ![Listado Real con Datos del API](rocket-junio/Documentacion/images/etapa4_list.png)
 
-### 🔹 Etapa 5: Operaciones CRUD e Interacciones (Próxima Etapa)
+### 🔹 Etapa 5: Operaciones CRUD e Interacciones
 *   **Objetivo:** Crear modales dinámicos para agregar, editar y eliminar registros usando React Hook Form y peticiones `POST`, `PUT` y `DELETE` al backend Rust.
+*   **Detalles Técnicos:**
+    *   Uso de `react-hook-form` para manejar la recolección de campos y la validación local (requiriendo un ID exacto de 5 caracteres alfanuméricos y nombre de la empresa obligatorio).
+    *   Llamados `POST` para creación, `PUT` para actualización y `DELETE` para eliminación física de registros.
+    *   Diálogo interactivo unificado para alta/edición y diálogo de confirmación para la baja del registro.
+    *   Notificación de respuesta mediante alertas tipo Toast (`Snackbar` de MUI) para confirmar transacciones exitosas o advertir de errores.
+*   **Archivos Relacionados:**
+    *   [`front/src/app/page.tsx`](file:///home/ebit/projects/0%20CodeCrypto%20Academy/04_Rust_Practice/01_Telco_Web_Rocket/front/src/app/page.tsx): Diálogos interactivos, validaciones de formularios y controladores de red.
+*   **Pruebas Realizadas:**
+    1.  **Formulario de Nuevo Cliente:** Modal de creación interactivo.
+        
+        ![Creación de Cliente](rocket-junio/Documentacion/images/etapa5_create.png)
+        
+    2.  **Formulario de Edición de Cliente:** Modal de modificación precargando los datos actuales de la fila seleccionada.
+        
+        ![Edición de Cliente](rocket-junio/Documentacion/images/etapa5_edit.png)
+        
+    3.  **Eliminación Segura de Cliente:** Diálogo de confirmación para prevenir borrados accidentales del registro seleccionado.
+        
+        ![Confirmación de Eliminación](rocket-junio/Documentacion/images/etapa5_delete.png)
 
 ---
 
